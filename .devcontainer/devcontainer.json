@@ -1,5 +1,5 @@
 {
-  "name": "tech-quest-official-website",
+  "name": "test",
   "dockerComposeFile": "./docker-compose.yml",
   "service": "node",
   "workspaceFolder": "/usr/src",
