@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 
+import { useEnv } from '~/app/env-provider';
 import { usePostFetch } from '~/features/app/hooks/use-post-fetch';
-import { getApiBaseUrl } from '~/features/app/utils/get-api-base-url';
 
 type ApiResponseData = { id: string };
 
 export const useCreateMemoApi = () => {
   const [success, setSuccess] = useState<boolean | null>(null);
+  const { API_BASE_URL } = useEnv();
 
-  const { data, error, isLoading, mutate } = usePostFetch<ApiResponseData>(`${getApiBaseUrl()}/memos/create`);
+  const { data, error, isLoading, mutate } = usePostFetch<ApiResponseData>(`${API_BASE_URL}/memos/create`);
 
   useEffect(() => {
     if (!data) return;

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import { EnvProvider } from './env-provider';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -19,10 +20,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="logo">Memoアプリ</div>
           </header>
           <main id="main" className="main">
-            {children}
+            <EnvProvider env={{ API_BASE_URL: getApiBaseUrl() }}>{children}</EnvProvider>
           </main>
         </div>
       </body>
     </html>
   );
 }
+
+export const getApiBaseUrl = () => {
+  if (process.env.CODESPACE_NAME) return `https://${process.env.CODESPACE_NAME}-8000.app.github.dev`;
+  if (process.env.API_BASE_URL) return process.env.API_BASE_URL;
+
+  return 'http://localhost:8000';
+};
