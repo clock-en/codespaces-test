@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 
+import { useEnv } from '~/app/env-provider';
 import { useGetFetch } from '~/features/app/hooks/use-get-fetch';
-import { getApiBaseUrl } from '~/features/app/utils/get-api-base-url';
 import { MemoUiModel } from '~/features/memo/ui-models/memo';
 
 type ApiResponseData = { id: string; title: string; createdAt: string };
 
 export const useFetchMemosApi = () => {
   const [memos, setMemos] = useState<MemoUiModel[]>([]);
+  const { API_BASE_URL } = useEnv();
 
-  const { data, error, isLoading, query } = useGetFetch<ApiResponseData[]>(`${getApiBaseUrl()}/memos`);
+  const { data, error, isLoading, query } = useGetFetch<ApiResponseData[]>(`${API_BASE_URL}/memos`);
 
   useEffect(() => {
     if (!data) return;
