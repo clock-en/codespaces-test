@@ -6,7 +6,7 @@ services:
       dockerfile: ./.docker/images/node/Dockerfile
     tty: true
     volumes:
-      - ..:/var/www
+      - ..:/usr/src
       - node_modules:/usr/src/node_modules
     env_file:
       - .env.dev
